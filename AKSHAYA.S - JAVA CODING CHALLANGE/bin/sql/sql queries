@@ -1,0 +1,85 @@
+CREATE DATABASE IF NOT EXISTS PetPals;
+USE PetPals;
+
+CREATE TABLE IF NOT EXISTS Pets (
+    PetID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100),
+    Age INT,
+    Breed VARCHAR(100),
+    Type VARCHAR(50),
+    AvailableForAdoption BIT
+);
+
+
+CREATE TABLE IF NOT EXISTS Shelters (
+    ShelterID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100),
+    Location VARCHAR(255)
+);
+
+
+CREATE TABLE IF NOT EXISTS Donations (
+    DonationID INT PRIMARY KEY AUTO_INCREMENT,
+    DonorName VARCHAR(100),
+    DonationType VARCHAR(50),
+    DonationAmount DECIMAL(10,2),
+    DonationItem VARCHAR(100),
+    DonationDate DATETIME
+);
+
+
+CREATE TABLE IF NOT EXISTS AdoptionEvents (
+    EventID INT PRIMARY KEY AUTO_INCREMENT,
+    EventName VARCHAR(100),
+    EventDate DATETIME,
+    Location VARCHAR(255)
+);
+
+
+CREATE TABLE IF NOT EXISTS Participants (
+    ParticipantID INT PRIMARY KEY AUTO_INCREMENT,
+    ParticipantName VARCHAR(100),
+    ParticipantType VARCHAR(50),
+    EventID INT,
+    FOREIGN KEY (EventID) REFERENCES AdoptionEvents(EventID)
+);
+
+
+INSERT INTO Pets (Name, Age, Breed, Type, AvailableForAdoption) VALUES
+('Buddy', 2, 'Labrador', 'Dog', 1),
+('Milo', 3, 'Beagle', 'Dog', 1),
+('Simba', 1, 'Persian', 'Cat', 1),
+('Lucy', 4, 'Golden Retriever', 'Dog', 0),
+('Daisy', 5, 'Poodle', 'Dog', 1);
+
+
+INSERT INTO Shelters (Name, Location) VALUES
+('Happy Paws', 'New York'),
+('Furry Friends', 'Los Angeles'),
+('Safe Haven', 'Chicago'),
+('Paw Palace', 'Houston'),
+('Rescue Shelter', 'Miami');
+
+
+INSERT INTO Donations (DonorName, DonationType, DonationAmount, DonationItem, DonationDate) VALUES
+('Alice', 'Cash', 100.00, NULL, '2024-03-01 10:00:00'),
+('Bob', 'Item', NULL, 'Dog Food', '2024-03-05 12:30:00'),
+('Charlie', 'Cash', 50.00, NULL, '2024-03-10 14:00:00'),
+('David', 'Item', NULL, 'Cat Litter', '2024-03-15 09:15:00'),
+('Emma', 'Cash', 75.00, NULL, '2024-03-20 11:45:00');
+
+
+INSERT INTO AdoptionEvents (EventName, EventDate, Location) VALUES
+('Spring Adoption Fair', '2024-04-10 11:00:00', 'Central Park'),
+('Summer Pet Parade', '2024-06-15 09:30:00', 'Downtown Plaza'),
+('Rescue Rally', '2024-08-20 13:00:00', 'Community Hall'),
+('Holiday Pet Fest', '2024-12-05 10:00:00', 'Mall Square'),
+('Animal Lovers Meet', '2024-10-08 15:00:00', 'City Grounds');
+
+
+INSERT INTO Participants (ParticipantName, ParticipantType, EventID) VALUES
+('Happy Paws', 'Shelter', 1),
+('Furry Friends', 'Shelter', 2),
+('John Doe', 'Adopter', 3),
+('Jane Smith', 'Adopter', 4),
+('Safe Haven', 'Shelter', 5);
